@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: bbtest-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bbtest-app
+    spec:
+      containers:
+      - name: bbtest-app
+        image: gkranga/bbtest
+        ports:
+        - name: web
+          containerPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: bbtest-app
+  labels:
+    app: bbtest-app
+spec:
+  selector:
+    app: bbtest-app
+  ports:
+  - name: web
+    port: 8080
